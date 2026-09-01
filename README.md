@@ -43,27 +43,36 @@ Open [http://localhost:5000](http://localhost:5000).
 
 | Path | Purpose |
 | --- | --- |
-| `app.py` | Web server, prediction engine, API, and embedded dashboard UI |
+| `index.html` | Static dashboard (runs entirely in browser) |
+| `app.py` | Python server version (local use) |
 | `assets/` | Repository presentation assets |
+| `netlify.toml` | Netlify deployment config |
+| `_redirects` | Netlify routing rules |
 | `.gitignore` | Git ignore rules |
 
-## Deploy
+## Deploy to Netlify
 
-Push to GitHub and deploy to any Python-compatible host:
+### Option 1: Drag & Drop
+1. Go to [app.netlify.com](https://app.netlify.com)
+2. Drag this entire folder onto the deploy area
+3. Done! Your site is live
 
+### Option 2: Git Integration (Recommended)
+1. Push this repo to GitHub
+2. Go to [app.netlify.com](https://app.netlify.com)
+3. Click **Add new site** → **Import an existing project**
+4. Select GitHub and your repo
+5. Click **Deploy site**
+
+### Option 3: Netlify CLI
 ```bash
-git add .
-git commit -m "Initial commit"
-git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO.git
-git push -u origin main
+npm install -g netlify-cli
+netlify login
+netlify init
+netlify deploy --prod
 ```
 
-**Deployment options:**
-- **Render** — Free tier, auto-deploys from GitHub
-- **Railway** — Free tier, instant deploy
-- **Fly.io** — Free tier for small apps
-- **Vercel** — Python serverless support
-- **Heroku** — Classic PaaS option
+> Your data stays in your browser (localStorage). No server needed.
 
 <details>
 <summary><strong>Design direction</strong></summary>

@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Javidh Algo Pro — Premium Trading Terminal</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F9F8F6;--card:#FFFFFF;--card2:#F2F0ED;--gold:#C5A059;--gold-light:#A27D3F;--gold-dim:rgba(197,160,89,.12);--purple:#8F8069;--green:#3F765F;--red:#A95D56;--text:#1A1A1A;--muted:#595959;--border:rgba(26,26,26,.13);--radius:2px}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;line-height:1.5;padding:0}
+.container{max-width:1180px;padding:22px 20px 60px;margin:0 auto}
+.navbar{display:flex;justify-content:space-between;align-items:center;background:transparent;border:0;border-bottom:1px solid var(--border);border-radius:0;box-shadow:none;padding:12px 0 18px;margin-bottom:30px;backdrop-filter:none}
+.brand{font-family:'Playfair Display',serif;font-size:23px;font-weight:600;background:none;-webkit-text-fill-color:initial;color:var(--text);letter-spacing:.02em;text-transform:none}
+.nav-right{display:flex;align-items:center;gap:10px}
+.mode-toggle{display:flex;background:transparent;border:1px solid var(--border);border-radius:2px;padding:3px}
+.mbtn{border:none;background:transparent;color:var(--muted);padding:6px 14px;border-radius:0;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;cursor:pointer;transition:all .3s;min-height:40px}
+.mbtn.active{background:var(--text);color:var(--bg);box-shadow:none}
+.btn-pill,.clock-pill,.schip,.pinp,.bsync,.card,.advisor,.controls,.hero,.dball,.kbtn,.sbox,.tcard,.dsummary,.reset-banner,.modal-box,.minp{border-radius:2px;box-shadow:none}
+.btn-pill{background:transparent;border:1px solid var(--border);color:var(--text);padding:6px 12px;border-radius:20px;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;min-height:40px}
+.btn-pill:hover{border-color:var(--gold);color:var(--gold)}
+.clock-pill{background:transparent;border:1px solid var(--gold);color:var(--gold-light);padding:6px 14px;border-radius:20px;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;min-height:40px;display:flex;align-items:center}
+.clock-freeze{color:var(--red)!important;border-color:var(--red)!important;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.advisor{background:transparent;border:0;border-left:2px solid var(--gold);padding:4px 14px;margin-bottom:28px;color:var(--muted);display:flex;justify-content:space-between;align-items:center;font-size:13px;flex-wrap:wrap;gap:8px}
+.advisor span.gold{color:var(--gold);font-weight:700;font-family:'Inter',sans-serif}
+.controls{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.stakes{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.schip{background:var(--card2);border:1px solid var(--border);color:var(--text);padding:5px 10px;border-radius:8px;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;min-height:40px}
+.schip:hover{border-color:var(--gold)}
+.schip.sel{background:var(--text);color:var(--bg);border-color:var(--text)}
+.sync-grp{display:flex;align-items:center;gap:6px}
+.pinp{background:var(--bg);border:1px solid var(--border);color:var(--text);padding:7px 12px;border-radius:8px;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;width:130px;outline:none;min-height:40px}
+.pinp:focus{border-color:var(--gold)}
+.bsync{background:var(--text);color:var(--bg);border:none;padding:7px 16px;border-radius:8px;font-family:'Inter',sans-serif;font-weight:800;font-size:12px;cursor:pointer;transition:all .2s;min-height:40px}
+.bsync:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(212,168,67,0.4)}
+.grid{display:grid;grid-template-columns:1.25fr .75fr;gap:28px}
+@media(max-width:860px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:28px;box-shadow:none;transition:all .3s}
+.card:hover{box-shadow:none}
+.hero{background:var(--card);border:1px solid var(--gold);text-align:center;padding:42px 24px;position:relative;overflow:hidden}
+.hero::before{display:none}
+.peri-pill{display:inline-block;background:transparent;border:0;border-bottom:1px solid var(--gold);border-radius:0;color:var(--gold-light);padding:4px 0;font-family:'Inter',sans-serif;font-size:12px;font-weight:700;margin-bottom:10px;position:relative;z-index:1}
+.pred-main{font-family:'Playfair Display',serif;font-size:clamp(42px,8vw,68px);font-weight:600;letter-spacing:3px;margin-bottom:4px;position:relative;z-index:1;text-transform:uppercase;background:none;-webkit-text-fill-color:initial;color:var(--text);text-shadow:none}
+.is-big{color:var(--green);text-shadow:none}
+.is-small{color:var(--red);text-shadow:none}
+.level-chip{display:inline-block;background:transparent;border:0;border-bottom:1px solid var(--gold);border-radius:0;color:var(--gold-light);padding:4px 0;font-family:'Inter',sans-serif;font-size:12px;font-weight:700;margin-bottom:12px;position:relative;z-index:1}
+.stake-row{font-size:14px;color:var(--muted);margin-bottom:14px;position:relative;z-index:1;text-transform:uppercase;letter-spacing:1px}
+.stake-b{color:var(--text);font-size:22px;font-weight:800;font-family:'Inter',sans-serif;letter-spacing:1px}
+.digits-row{display:flex;justify-content:center;gap:12px;margin:12px 0;position:relative;z-index:1}
+.dball{width:68px;height:68px;background:var(--card2);border:1px solid var(--border);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-weight:800;transition:all .3s}
+.dball:hover{transform:translateY(-4px)}
+.dball.g{border-color:var(--green);color:var(--green)}
+.dball.r{border-color:var(--red);color:var(--red)}
+.dball.v{border-color:var(--gold);color:var(--gold-light)}
+.dnum{font-size:22px;font-weight:800;text-transform:uppercase}
+.dpct{font-size:10px;color:var(--muted)}
+.reasons{background:var(--card2);border-left:2px solid var(--gold);border-radius:0;padding:10px 14px;margin-top:14px;text-align:left;font-size:12px;color:var(--muted);line-height:1.6;position:relative;z-index:1}
+.numpad{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:8px}
+.kbtn{background:var(--card2);color:var(--text);border:2px solid var(--border);color:#fff;padding:12px 0;border-radius:10px;font-family:'Inter',sans-serif;font-size:20px;font-weight:800;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;transition:all .15s;position:relative;overflow:hidden;text-transform:uppercase;min-height:70px}
+.kbtn:hover{transform:none;background:var(--bg)}
+.kbtn:active{transform:scale(0.95)}
+.kbtn.g{border-color:rgba(52,211,153,0.4)}
+.kbtn.g:hover{border-color:var(--green);background:rgba(52,211,153,0.1)}
+.kbtn.r{border-color:rgba(248,113,113,0.4)}
+.kbtn.r:hover{border-color:var(--red);background:rgba(248,113,113,0.1)}
+.kbtn.v{border-color:rgba(139,92,246,0.4)}
+.kbtn.v:hover{border-color:var(--purple);background:rgba(139,92,246,0.1)}
+.ksub{font-size:9px;color:var(--muted);font-weight:600;text-transform:uppercase}
+.kbtn:disabled{opacity:0.4;cursor:not-allowed;transform:none!important}
+.kbtn:disabled::after{display:none}
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.sbox{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:10px 8px;text-align:center}
+.stit{font-size:9px;color:var(--muted);text-transform:uppercase;font-weight:700;letter-spacing:.5px}
+.sval{font-size:17px;font-weight:800;font-family:'Inter',sans-serif;margin-top:2px;letter-spacing:0.5px}
+.tgrn{color:var(--green)}.tred{color:var(--red)}.tog{color:var(--gold-light)}
+.tlog{max-height:160px;overflow-y:auto;margin-bottom:10px}
+.tcard{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:8px 12px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;font-family:'Inter',sans-serif;font-size:11px;text-transform:uppercase}
+.tw{background:rgba(52,211,153,0.15);color:var(--green);border:1px solid var(--green);padding:2px 8px;border-radius:10px;font-weight:700;font-size:10px}
+.tl{background:rgba(248,113,113,0.15);color:var(--red);border:1px solid var(--red);padding:2px 8px;border-radius:10px;font-weight:700;font-size:10px}
+.dsummary{background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:14px}
+.dst{font-size:10px;color:var(--gold-light);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.dgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:8px}
+.dcell{text-align:center}
+.dlbl{font-size:9px;color:var(--muted);text-transform:uppercase;font-weight:700}
+.dval{font-size:17px;font-weight:800;font-family:'Inter',sans-serif;letter-spacing:0.5px}
+.dbot{margin-top:8px;padding-top:8px;border-top:1px solid var(--border);display:flex;justify-content:space-between;font-size:11px}
+.dbot span{color:var(--muted)}
+.dbot strong{color:var(--text);font-family:'Inter',sans-serif}
+.reset-banner{background:rgba(169,93,86,.08);border:1px solid var(--red);border-radius:10px;padding:10px 14px;margin-bottom:14px;display:none;justify-content:space-between;align-items:center;font-size:12px}
+.modal-bg{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(26,26,26,.38);backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;z-index:1000;padding:16px}
+.modal-box{background:var(--card);border:1px solid var(--gold);border-radius:20px;padding:32px;max-width:400px;width:100%;text-align:center;box-shadow:none}
+.mtitle{font-family:'Playfair Display',serif;font-size:27px;font-weight:900;color:var(--text);margin-bottom:8px;text-transform:none;letter-spacing:0;background:none;-webkit-text-fill-color:initial}
+.mdesc{font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.5}
+.minp{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:12px;border-radius:10px;font-size:18px;font-weight:700;text-align:center;font-family:'Inter',sans-serif;margin-bottom:16px;outline:none;min-height:48px}
+.minp:focus{border-color:var(--gold)}
+.modal-submit{width:100%;background:var(--text);color:var(--bg);border:0;padding:13px;border-radius:2px;font-size:14px;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;min-height:48px}
+.modal-submit:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(212,168,67,0.4)}
+.night{--bg:#1A1A1A;--card:#242424;--card2:#2D2D2D;--text:#F9F8F6;--muted:#C0BDB7;--border:rgba(249,248,246,.16)}
+.night .pinp{background:#202020}
+.night .bsync,.night .mbtn.active,.night .modal-submit{background:#F9F8F6;color:#1A1A1A}
+.reveal{opacity:1;transform:none;filter:none}
+.js .reveal{opacity:0;transform:translateY(30px);filter:blur(3px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1),filter .7s cubic-bezier(.22,1,.36,1)}
+.js .reveal.is-visible{opacity:1;transform:none;filter:none}
+@media(max-width:600px){.container{padding:14px 14px 40px}.navbar{align-items:flex-start;gap:14px}.brand{font-size:20px}.nav-right{flex-wrap:wrap;justify-content:flex-end}.advisor{font-size:12px}.controls{align-items:stretch}.stakes,.sync-grp{width:100%}.sync-grp .pinp{flex:1;width:auto}.grid{gap:0}.card{padding:18px;margin-bottom:18px}.hero{padding:34px 16px}.digits-row{gap:7px}.dball{width:60px;height:60px}.numpad{gap:6px}.kbtn{min-height:62px;padding:8px 0}.dgrid{grid-template-columns:repeat(2,1fr);gap:14px}.dbot{gap:8px;flex-wrap:wrap}.dbot span{width:calc(50% - 4px)}}
+@media(max-width:700px){.navbar{flex-wrap:wrap}.navbar .brand{width:100%}.nav-right{width:100%;justify-content:space-between}.controls{width:100%}.stakes{gap:5px}.stakes>span{width:100%;margin-bottom:2px}.sync-grp{display:flex}.advisor{align-items:flex-start}.advisor span{max-width:100%}.tcard{gap:8px}.tcard>div:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
+@media(max-width:360px){.nav-right{gap:5px}.nav-right .btn-pill,.nav-right .clock-pill{padding-left:9px;padding-right:9px;font-size:10px}.card{padding-left:14px;padding-right:14px}.dball{width:55px;height:55px}.kbtn{font-size:18px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.js .reveal,.js .reveal.is-visible{opacity:1;transform:none;filter:none;transition:none}}
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="navbar">
+    <div class="brand">✦ JAVIDH ALGO PRO</div>
+    <div class="nav-right">
+      <div class="mode-toggle">
+        <button class="mbtn active" id="m30" onclick="setMode('30S')">⚡ 30S</button>
+        <button class="mbtn" id="m1m" onclick="setMode('1M')">⏱ 1M</button>
+      </div>
+      <button class="btn-pill" onclick="openCap()">💰 <span id="navCap">₹2,000</span></button>
+      <button class="btn-pill" id="themeToggle" onclick="toggleTheme()">☾ Night</button>
+      <div class="clock-pill" id="clockPill">⏳ <span id="clockVal">30s</span></div>
+    </div>
+  </nav>
+
+  <div class="advisor">
+    <span>🎯 <strong id="advMode">30S:</strong> <span id="advWin">Best: 05:00–07:30 PM</span></span>
+    <span class="gold" id="advStrat">Javidh Quantum Core v3</span>
+  </div>
+
+  <div class="controls">
+    <div class="stakes">
+      <span style="font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;margin-right:4px">BASE:</span>
+      <button class="schip sel" onclick="setStake(50)">₹50</button>
+      <button class="schip" onclick="setStake(75)">₹75</button>
+      <button class="schip" onclick="setStake(100)">₹100</button>
+      <button class="schip" onclick="setStake(125)">₹125</button>
+      <button class="schip" onclick="setStake(150)">₹150</button>
+      <button class="schip" onclick="addStake(25)" style="color:var(--gold)">+₹25</button>
+    </div>
+    <div class="sync-grp">
+      <input type="text" id="periInp" class="pinp" value="52436" placeholder="Period">
+      <button class="bsync" onclick="syncPeri()">⚡ SYNC</button>
+    </div>
+  </div>
+
+  <div class="reset-banner" id="resetBanner">
+    <span>⚠️ <strong>Drawdown detected!</strong> <span id="lossCnt">0</span> consecutive losses. Algorithm in recovery mode.</span>
+    <button class="btn-pill" style="background:var(--red);color:#fff" onclick="resetAlgo()">🔄 RESET</button>
+  </div>
+
+  <div class="grid">
+    <div>
+      <section class="card hero reveal">
+        <div class="peri-pill">🎯 TARGET: <span id="tgtPeri">52437</span></div>
+        <div class="pred-main is-big" id="mainPred">BIG (5-9)</div>
+        <div class="level-chip" id="lvlChip">LEVEL 1 • ₹50</div>
+        <div class="stake-row">STAKE: <span class="stake-b" id="stkDisp">₹50</span> &bull; Edge: <strong style="color:var(--green)" id="confDisp">78%</strong></div>
+        <div style="font-size:10px;color:var(--muted);text-transform:uppercase;font-weight:700">Top Digits</div>
+        <div class="digits-row" id="digGrid">
+          <div class="dball g"><div class="dnum">7</div><div class="dpct">28%</div></div>
+          <div class="dball r"><div class="dnum">8</div><div class="dpct">26%</div></div>
+          <div class="dball g"><div class="dnum">9</div><div class="dpct">22%</div></div>
+        </div>
+        <div class="reasons" id="reasonBox">
+          <strong>🧠 Analysis:</strong><br>• Dragon momentum detected<br>• Wavelet harmonic alignment confirmed
+        </div>
+      </section>
+
+      <section class="card reveal">
+        <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:8px">
+          <span>⚡ RECORD RESULT</span><span style="color:var(--gold)">1-CLICK FEEDBACK</span>
+        </div>
+        <div class="numpad" id="numpad">
+          <button class="kbtn v" onclick="submitAns(0)">0<span class="ksub">R+V</span></button>
+          <button class="kbtn g" onclick="submitAns(1)">1<span class="ksub">Grn</span></button>
+          <button class="kbtn r" onclick="submitAns(2)">2<span class="ksub">Red</span></button>
+          <button class="kbtn g" onclick="submitAns(3)">3<span class="ksub">Grn</span></button>
+          <button class="kbtn r" onclick="submitAns(4)">4<span class="ksub">Red</span></button>
+          <button class="kbtn v" onclick="submitAns(5)">5<span class="ksub">G+V</span></button>
+          <button class="kbtn r" onclick="submitAns(6)">6<span class="ksub">Red</span></button>
+          <button class="kbtn g" onclick="submitAns(7)">7<span class="ksub">Grn</span></button>
+          <button class="kbtn r" onclick="submitAns(8)">8<span class="ksub">Red</span></button>
+          <button class="kbtn g" onclick="submitAns(9)">9<span class="ksub">Grn</span></button>
+        </div>
+        <div id="freezeMsg" style="text-align:center;margin-top:10px;font-size:13px;font-weight:700;color:#fff;background:var(--red);padding:10px;border-radius:8px;display:none;cursor:pointer;animation:pulse 1s infinite" onclick="syncSilent()">
+          🛑 STOP TRADING FOR THIS TREND — PRESS OK TO SYNC
+        </div>
+      </section>
+    </div>
+
+    <div>
+      <section class="card reveal">
+        <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:10px">💰 Capital</div>
+        <div class="sgrid">
+          <div class="sbox"><div class="stit">Bankroll</div><div class="sval tgrn" id="sBal">₹2,000</div></div>
+          <div class="sbox"><div class="stit">PnL</div><div class="sval tgrn" id="sPnl">+₹0</div></div>
+          <div class="sbox"><div class="stit">Win Rate</div><div class="sval tog" id="sWr">58%</div></div>
+        </div>
+        <div class="sgrid">
+          <div class="sbox"><div class="stit">Trades</div><div class="sval" id="sTr">0</div></div>
+          <div class="sbox"><div class="stit">W/L</div><div class="sval" id="sWl">0/0</div></div>
+          <div class="sbox"><div class="stit">Streak</div><div class="sval tred" id="sSt">0</div></div>
+        </div>
+      </section>
+
+      <section class="card reveal">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+          <span style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase">History</span>
+          <a href="#" onclick="exportCSV();return false" style="color:var(--gold);text-decoration:none;font-size:11px;font-weight:700">📥 CSV</a>
+        </div>
+        <div class="tlog" id="tLog"></div>
+
+        <div class="dsummary">
+          <div class="dst">📊 Today's Summary</div>
+          <div class="dgrid">
+            <div class="dcell"><div class="dlbl">Trades</div><div class="dval" id="dTr">0</div></div>
+            <div class="dcell"><div class="dlbl">Win Rate</div><div class="dval tgrn" id="dWr">0%</div></div>
+            <div class="dcell"><div class="dlbl">PnL</div><div class="dval tgrn" id="dPnl">+₹0</div></div>
+            <div class="dcell"><div class="dlbl">Balance</div><div class="dval tog" id="dBal">₹2,000</div></div>
+          </div>
+          <div class="dbot">
+            <span>Wins: <strong id="dW">0</strong></span>
+            <span>Losses: <strong id="dL">0</strong></span>
+            <span>Staked: <strong id="dSt">₹0</strong></span>
+            <span>Won: <strong id="dWbk">₹0</strong></span>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="capModal">
+  <div class="modal-box">
+    <div class="mtitle">💰 Set Your Capital</div>
+    <div class="mdesc">Enter your bankroll. Javidh Algo calculates your base stake and manages risk progression automatically.</div>
+    <input type="number" id="capInp" class="minp" value="2000" step="500">
+    <button class="modal-submit" onclick="submitCap()">START TRADING</button>
+  </div>
+</div>
+
+<div class="modal-bg" id="periodModal">
+  <div class="modal-box">
+    <div class="mtitle">Set current period</div>
+    <div class="mdesc">Enter the live period number to start syncing your dashboard.</div>
+    <input type="text" id="periodModalInp" class="minp" value="52436" inputmode="numeric" autocomplete="off">
+    <button class="modal-submit" onclick="submitInitialPeriod()">SYNC PERIOD</button>
+  </div>
+</div>
+
+<script>
+const PRELOADED=[6,0,1,6,4,0,8,9,6,4,8,9,4,7,2,0,4,8,7,6,6,2,0,4,9,6,0,1,5,1,1,1,8,9,2,3,3,6,6,5,6,5,4,4,0,7,3,2,7,3,4,8,0,7,7,7,1,9,9,6,6,6,8,7,6,8,8,8,9,5,6,3,3,3,6,1,2,3,3,3,9,0,2,1,1,1,9,6,4,2,2,2,5,1,5,8,8,8,3,6,5,9,9,9,3,8,3,4,4,4,6,4,7,3,3,3,6,9,8,8,8,8,8,3,3,6,6,6,5,7,4,2,2,2,3,3,9,1,1,1,2,5,1,2,2,2,2,7,3,8,8,8,8,5,1,2,2,2,5,1,6,0,0,0,8,1,1,6,6,6];
+
+let state=JSON.parse(localStorage.getItem('javidh_state')||'null')||{
+  bankroll:2000,initial_capital:2000,base_stake:50,
+  wins:0,losses:0,trades:0,max_loss_streak:0,current_loss_streak:0,
+  current_period:'52436',target_period:'52437',game_mode:'30S',
+  history:[],trade_log:[]
+};
+
+function saveState(){localStorage.setItem('javidh_state',JSON.stringify(state))}
+
+function colorOf(n){
+  if(n===0)return'red,violet';if(n===5)return'green,violet';
+  if([1,3,7,9].includes(n))return'green';return'red';
+}
+
+function initHistory(){
+  const base=52267;state.history=[];
+  for(let i=0;i<PRELOADED.length;i++){
+    const n=PRELOADED[i];
+    state.history.push({period:String(base+i),number:n,is_big:n>=5?1:0,color:colorOf(n),timestamp:new Date().toLocaleTimeString()});
+  }
+  state.current_period=String(base+PRELOADED.length-1);
+  state.target_period=String(base+PRELOADED.length);
+  saveState();
+}
+
+if(!state.history.length)initHistory();
+
+let curMode=state.game_mode||'30S';
+document.documentElement.classList.add('js');
+
+function toggleTheme(){
+  const night=document.body.classList.toggle('night');
+  localStorage.setItem('javidh_theme',night?'night':'day');
+  document.getElementById('themeToggle').innerText=night?'☀ Day':'☾ Night';
+}
+if(localStorage.getItem('javidh_theme')==='night'){
+  document.body.classList.add('night');
+  document.getElementById('themeToggle').innerText='☀ Day';
+}
+
+let lastPeriodSynced=null;
+setInterval(()=>{
+  const interval=curMode==='30S'?30:60;
+  const rem=interval-(Math.floor(Date.now()/1000)%interval);
+  const el=document.getElementById('clockVal');
+  const pill=document.getElementById('clockPill');
+  el.innerText=(rem<10?'0':'')+rem+'s';
+  if(rem<=5){pill.className='clock-pill clock-freeze';document.getElementById('freezeMsg').style.display='block';}
+  else{pill.className='clock-pill';document.getElementById('freezeMsg').style.display='none';}
+  if(rem===interval-1){
+    const currentTarget=document.getElementById('tgtPeri').innerText;
+    if(currentTarget&&currentTarget!==lastPeriodSynced){
+      lastPeriodSynced=currentTarget;
+      const nextTarget=(parseInt(currentTarget)+1).toString();
+      document.getElementById('tgtPeri').innerText=nextTarget;
+      document.getElementById('periInp').value=currentTarget;
+      refresh();
+    }
+  }
+},1000);
+
+if(!localStorage.getItem('javidh_cap'))document.getElementById('capModal').style.display='flex';
+
+function openCap(){document.getElementById('capModal').style.display='flex'}
+function submitCap(){
+  const v=parseFloat(document.getElementById('capInp').value);
+  if(isNaN(v)||v<=0)return;
+  state.bankroll=v;state.initial_capital=v;
+  state.base_stake=Math.max(50,Math.round(v*0.025));
+  state.wins=state.losses=state.trades=state.current_loss_streak=state.max_loss_streak=0;
+  state.trade_log=[];
+  saveState();
+  localStorage.setItem('javidh_cap','1');
+  document.getElementById('capModal').style.display='none';
+  refresh();
+}
+
+function setMode(m){
+  curMode=m;state.game_mode=m;saveState();
+  document.getElementById('m30').className=m==='30S'?'mbtn active':'mbtn';
+  document.getElementById('m1m').className=m==='1M'?'mbtn active':'mbtn';
+  document.getElementById('advMode').innerText=m==='30S'?'30S:':'1M: ';
+  document.getElementById('advWin').innerText=m==='30S'?'Best: 05:00–07:30 PM (Dragon Liquidity)':'Best: 08:30–11:00 PM (Macro Reversion)';
+  refresh();
+}
+
+function setStake(v){
+  document.querySelectorAll('.schip').forEach(c=>c.classList.remove('sel'));
+  event.target.classList.add('sel');
+  state.base_stake=v;saveState();refresh();
+}
+function addStake(d){state.base_stake=Math.max(10,state.base_stake+d);saveState();refresh();}
+
+function syncPeri(){
+  const p=document.getElementById('periInp').value.trim();
+  if(!p)return;
+  if(state.history.length){
+    const ln=state.history[state.history.length-1].number;
+    state.history.push({period:p,number:ln,is_big:ln>=5?1:0,color:colorOf(ln),timestamp:new Date().toLocaleTimeString()});
+  }
+  state.current_period=p;
+  state.target_period=String(parseInt(p)+1);
+  saveState();refresh();
+}
+
+function syncSilent(){
+  const currentTarget=document.getElementById('tgtPeri').innerText;
+  if(currentTarget){document.getElementById('periInp').value=currentTarget;syncPeri();}
+  document.getElementById('freezeMsg').style.display='none';
+}
+
+function submitAns(num){
+  const pred=predict();
+  const tp=pred.target_period;
+  const stake=pred.recommended_stake;
+  const mult=pred.multiplier;
+  const side=num>=5?'BIG':'SMALL';
+  const won=pred.side===side;
+  state.trades++;
+  let profit;
+  if(won){profit=(stake*1.96)-stake;state.bankroll+=profit;state.wins++;state.current_loss_streak=0;}
+  else{profit=-stake;state.bankroll-=stake;state.losses++;state.current_loss_streak++;state.max_loss_streak=Math.max(state.max_loss_streak,state.current_loss_streak);}
+  const col=colorOf(num);
+  state.trade_log.push({period:tp,number:num,actual_side:side,color:col,is_win:won,stake:stake,multiplier:mult,profit:Math.round(profit*100)/100,timestamp:new Date().toISOString()});
+  state.history.push({period:tp,number:num,is_big:num>=5?1:0,color:col,timestamp:new Date().toLocaleTimeString()});
+  state.current_period=tp;
+  state.target_period=String(parseInt(tp)+1);
+  saveState();refresh();
+}
+
+function resetAlgo(){state.current_loss_streak=0;initHistory();document.getElementById('resetBanner').style.display='none';refresh();}
+
+function predict(){
+  const h=state.history;
+  if(h.length<3)return makeDummy();
+  const nums=h.map(r=>r.number);
+  const bigs=nums.map(n=>n>=5?1:0);
+  const spins=nums.map(n=>n>=5?1:-1);
+  const n=nums.length;
+  const last=nums[n-1];
+  const last_bs=bigs[n-1];
+  let streak=1;
+  for(let i=n-2;i>=0;i--){if(bigs[i]===last_bs)streak++;else break;}
+  const k=Math.min(n,10);
+  let J=0;
+  for(let i=n-k+1;i<n;i++)J+=spins[i]*spins[i-1];
+  J/=Math.max(1,k-1);
+  const s1=bigs[n-2]||0,s2=last_bs;
+  let mt=2.0,mb=1.0;
+  const start=Math.max(0,n-62);
+  for(let i=start;i<n-2;i++){
+    if(bigs[i]===s1&&bigs[i+1]===s2){
+      const weight=Math.pow(0.96,Math.max(0,(n-3)-i));
+      mt+=weight;if(bigs[i+2]===1)mb+=weight;
+    }
+  }
+  const pm=mb/mt;
+  const recent=bigs.slice(-12);
+  const rw=recent.map((_,i)=>Math.pow(0.86,recent.length-1-i));
+  const recent_p=recent.reduce((s,v,i)=>s+v*rw[i],0)/Math.max(0.001,rw.reduce((s,v)=>s+v,0));
+  const sc=curMode==='30S'?2.5:4.0;
+  const c=nums.slice(-14).map(x=>x-4.5);
+  let rs=0,im=0;
+  for(let t=0;t<c.length;t++){
+    const dt=(c.length-1-t)/sc;
+    const e=Math.exp(-0.5*dt*dt);
+    rs+=c[t]*e*Math.cos(5*dt);
+    im-=c[t]*e*Math.sin(5*dt);
+  }
+  const wp=Math.sqrt(rs*rs+im*im)/Math.sqrt(sc);
+  const ph=Math.atan2(im,rs);
+  const cos_ph=Math.cos(ph);
+  const dc=new Array(10).fill(1);
+  for(let i=0;i<n-1;i++){
+    if(bigs[i]===last_bs)dc[nums[i+1]]+=2;
+    if(nums[i]===last)dc[nums[i+1]]+=3;
+  }
+  const td=dc.reduce((s,v)=>s+v,0);
+  const dp=dc.map(v=>Math.round(v/td*1000)/10);
+  let bs=0,bss=0;
+  const reasons=[];
+  if(recent_p>=0.59){bs+=1.5;reasons.push(`Recent weighted trend: Big ${Math.round(recent_p*100)}%`);}
+  else if(recent_p<=0.41){bss+=1.5;reasons.push(`Recent weighted trend: Small ${Math.round((1-recent_p)*100)}%`);}
+  if(wp>1.5){
+    if(cos_ph>0.2){bs+=1;reasons.push('Wavelet crest → bullish momentum');}
+    else if(cos_ph<-0.2){bss+=1;reasons.push('Wavelet trough → bearish cycle');}
+  }
+  if(J>0.15&&streak>=2){
+    if(last_bs===1){bs+=2;reasons.push(`Dragon momentum ×${streak}`);}
+    else{bss+=2;reasons.push(`Small dragon ×${streak}`);}
+  }
+  else if(J<-0.15&&streak>=3){
+    if(last_bs===0){bs+=2;reasons.push(`Chop reversal after ${streak} smalls`);}
+    else{bss+=2;reasons.push(`Chop reversal after ${streak} bigs`);}
+  }
+  if(pm>=0.58){bs+=1;reasons.push(`Markov P(Big)=${pm.toFixed(2)}`);}
+  else if(pm<=0.42){bss+=1;reasons.push(`Markov P(Small)=${(1-pm).toFixed(2)}`);}
+  const ts=nums.slice(-3).reduce((s,v)=>s+v,0);
+  if(ts>=15){bs+=1;reasons.push(`High velocity (sum=${ts})`);}
+  else if(ts<=8){bss+=1;reasons.push(`Low velocity (sum=${ts})`);}
+  const alt=bigs.slice(Math.max(0,n-5),n-1).reduce((s,v,i)=>s+(v!==bigs[Math.max(0,n-5)+i+1+1]?1:0),0);
+  if(alt>=4){
+    if(last_bs===1){bss+=2;reasons.push('Alternating pattern → bet Small');}
+    else{bs+=2;reasons.push('Alternating pattern → bet Big');}
+  }
+  const margin=Math.abs(bs-bss);
+  let side,conf,top;
+  if(margin<0.6){
+    side=recent_p>=0.5?'BIG':'SMALL';
+    conf=51+Math.min(8,margin*4);
+    reasons.push('No strong edge - reduced confidence');
+    const range=side==='BIG'?[5,6,7,8,9]:[0,1,2,3,4];
+    top=range.map(d=>({num:d,prob:dp[d]})).sort((a,b)=>b.prob-a.prob).slice(0,3);
+  }
+  else if(bs>bss){
+    side='BIG';conf=Math.min(78,52+margin*7);
+    top=[5,6,7,8,9].map(d=>({num:d,prob:dp[d]})).sort((a,b)=>b.prob-a.prob).slice(0,3);
+  }
+  else{
+    side='SMALL';conf=Math.min(78,52+margin*7);
+    top=[0,1,2,3,4].map(d=>({num:d,prob:dp[d]})).sort((a,b)=>b.prob-a.prob).slice(0,3);
+  }
+  const mult=Math.min(4,state.current_loss_streak+1);
+  const stake=state.base_stake*mult;
+  const nextP=state.current_period&&state.current_period.match(/^\d+$/)?String(parseInt(state.current_period)+1):'52437';
+  state.target_period=nextP;saveState();
+  return{target_period:nextP,prediction:`${side} (${side==='BIG'?'5-9':'0-4'})`,side,confidence:Math.round(conf*10)/10,top_numbers:top,action:`LEVEL ${mult} × ₹${stake.toFixed(0)}`,multiplier:mult,base_stake:state.base_stake,recommended_stake:stake,loss_streak:state.current_loss_streak,strategy_name:'Javidh Quantum Core v3',reasons,streak};
+}
+
+function makeDummy(){return{target_period:'52437',prediction:'BIG (5-9)',side:'BIG',confidence:60.0,top_numbers:[{num:7,prob:26.0},{num:8,prob:24.0},{num:9,prob:22.0}],action:'LEVEL 1 × ₹50',multiplier:1,base_stake:50,recommended_stake:50,loss_streak:0,strategy_name:'Initializing...',reasons:['Loading history...'],streak:0};}
+
+function refresh(){
+  try{
+    const d1=predict();
+    document.getElementById('tgtPeri').innerText=d1.target_period;
+    const pe=document.getElementById('mainPred');
+    pe.innerText=d1.prediction;
+    pe.className='pred-main '+(d1.side==='BIG'?'is-big':'is-small');
+    document.getElementById('lvlChip').innerText=d1.action;
+    document.getElementById('stkDisp').innerText='₹'+d1.recommended_stake.toFixed(0);
+    document.getElementById('confDisp').innerText=d1.confidence+'%';
+    document.getElementById('advStrat').innerText=d1.strategy_name;
+    const dg=document.getElementById('digGrid');dg.innerHTML='';
+    d1.top_numbers.forEach(d=>{
+      let c='g';if(d.num===0||d.num===5)c='v';else if([2,4,6,8].includes(d.num))c='r';
+      dg.innerHTML+=`<div class="dball ${c}"><div class="dnum">${d.num}</div><div class="dpct">${d.prob}%</div></div>`;
+    });
+    document.getElementById('reasonBox').innerHTML='<strong>🧠 Analysis:</strong><br>'+d1.reasons.map(r=>'• '+r).join('<br>');
+    document.getElementById('sBal').innerText='₹'+state.bankroll.toFixed(0);
+    document.getElementById('navCap').innerText='₹'+state.bankroll.toFixed(0);
+    const pnl=state.bankroll-state.initial_capital;
+    const pe2=document.getElementById('sPnl');
+    pe2.innerText=(pnl>=0?'+':'')+'₹'+Math.abs(pnl).toFixed(0);
+    pe2.className='sval '+(pnl>=0?'tgrn':'tred');
+    document.getElementById('sWr').innerText=state.trades?Math.round(state.wins/state.trades*1000)/10+'%':'0%';
+    document.getElementById('sTr').innerText=state.trades;
+    document.getElementById('sWl').innerText=state.wins+'/'+state.losses;
+    document.getElementById('sSt').innerText=state.current_loss_streak;
+    const tl=document.getElementById('tLog');tl.innerHTML='';
+    state.trade_log.slice(-6).reverse().forEach(x=>{
+      tl.innerHTML+=`<div class="tcard"><div><strong>#${x.period}</strong> ${x.number} (${x.actual_side})</div><div class="${x.is_win?'tw':'tl'}">${x.is_win?'WIN +₹'+x.profit.toFixed(0):'LOSS -₹'+x.stake.toFixed(0)}</div></div>`;
+    });
+    const today=new Date().toISOString().split('T')[0];
+    const today_trades=state.trade_log.filter(x=>x.timestamp&&x.timestamp.startsWith(today));
+    const tw=today_trades.filter(x=>x.is_win).length;
+    const tl2=today_trades.length-tw;
+    const tp=today_trades.reduce((s,x)=>s+x.profit,0);
+    document.getElementById('dTr').innerText=today_trades.length;
+    document.getElementById('dWr').innerText=today_trades.length?Math.round(tw/today_trades.length*1000)/10+'%':'0%';
+    document.getElementById('dPnl').innerText=(tp>=0?'+':'')+'₹'+tp.toFixed(0);
+    document.getElementById('dPnl').style.color=tp>=0?'var(--green)':'var(--red)';
+    document.getElementById('dBal').innerText='₹'+state.bankroll.toFixed(0);
+    document.getElementById('dW').innerText=tw;
+    document.getElementById('dL').innerText=tl2;
+    document.getElementById('dSt').innerText='₹'+today_trades.reduce((s,x)=>s+x.stake,0).toFixed(0);
+    document.getElementById('dWbk').innerText='₹'+today_trades.filter(x=>x.is_win).reduce((s,x)=>s+x.stake+x.profit,0).toFixed(0);
+    if(state.current_loss_streak>=3){document.getElementById('resetBanner').style.display='flex';document.getElementById('lossCnt').innerText=state.current_loss_streak;}
+    else{document.getElementById('resetBanner').style.display='none';}
+  }catch(e){console.error(e)}
+}
+
+function submitInitialPeriod(){
+  const p=document.getElementById('periodModalInp').value.trim();
+  if(!p)return;
+  document.getElementById('periInp').value=p;
+  syncPeri();
+  localStorage.setItem('javidh_initial_sync_done','1');
+  document.getElementById('periodModal').style.display='none';
+}
+
+function exportCSV(){
+  let csv='Period,Number,Big_Small,Color,Result,Stake,Multiplier,Profit,Timestamp\n';
+  state.trade_log.forEach(x=>{
+    csv+=`${x.period},${x.number},${x.actual_side},${x.color},${x.is_win?'WIN':'LOSS'},${x.stake},${x.multiplier},${x.profit},${x.timestamp}\n`;
+  });
+  const blob=new Blob([csv],{type:'text/csv'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='javidh_algo_pro.csv';a.click();
+}
+
+window.addEventListener('load',()=>{
+  if(!localStorage.getItem('javidh_initial_sync_done')){
+    setTimeout(()=>document.getElementById('periodModal').style.display='flex',250);
+  }
+});
+
+const revealObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');revealObserver.unobserve(entry.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
+refresh();
+</script>
+</body>
+</html>
