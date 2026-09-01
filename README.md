@@ -4,8 +4,8 @@
   <p><strong>A calm, real-time WinGo research terminal for disciplined session tracking.</strong></p>
   <p>
     <a href="#run-locally">Run locally</a> ·
-    <a href="process.md">Research process</a> ·
-    <a href="#features">Features</a>
+    <a href="#features">Features</a> ·
+    <a href="#deploy">Deploy</a>
   </p>
 </div>
 
@@ -44,9 +44,26 @@ Open [http://localhost:5000](http://localhost:5000).
 | Path | Purpose |
 | --- | --- |
 | `app.py` | Web server, prediction engine, API, and embedded dashboard UI |
-| `process.md` | Research, risk, UI, and validation notes |
-| `analysis/` | Strategy evaluation outputs and reports |
 | `assets/` | Repository presentation assets |
+| `.gitignore` | Git ignore rules |
+
+## Deploy
+
+Push to GitHub and deploy to any Python-compatible host:
+
+```bash
+git add .
+git commit -m "Initial commit"
+git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO.git
+git push -u origin main
+```
+
+**Deployment options:**
+- **Render** — Free tier, auto-deploys from GitHub
+- **Railway** — Free tier, instant deploy
+- **Fly.io** — Free tier for small apps
+- **Vercel** — Python serverless support
+- **Heroku** — Classic PaaS option
 
 <details>
 <summary><strong>Design direction</strong></summary>
