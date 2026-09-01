@@ -1,0 +1,4 @@
+__pycache__/
+*.py[cod]
+javidh_trades_log.csv
+.pytest_cache/

@@ -1,0 +1,11 @@
+Game,Strategy,Initial_Capital,Flat_Stake,Final_Balance,Net_PnL,ROI_Pct,Total_Bets,Wins,Losses,Win_Rate_Pct,Max_Win_Streak,Max_Loss_Streak,Max_Drawdown_Pct
+Combined 30S+1M,Ultra-Sniper Convergence Tier 1 (p >= 66%),2000.00,Dynamic,3448.00,+1448.00,+72.40,266,155,111,58.27,9,2,2.80
+Combined 30S+1M,High Precision Threshold (p >= 60%),2000.00,Dynamic,3348.80,+1348.80,+67.44,412,237,175,57.52,8,3,3.00
+Combined 30S+1M,Ultimate Deep Alpha Engine (LZ78+Wavelets+RL),2000.00,Dynamic,3306.40,+1306.40,+65.32,584,331,253,56.68,8,3,3.20
+Combined 30S+1M,Extreme Convergence Sniper (p >= 74%),2000.00,Dynamic,2924.00,+924.00,+46.20,95,57,38,60.00,6,2,2.50
+WinGo 30S,Ultra-Sniper Convergence Tier 1 (p >= 66%),2000.00,Dynamic,2764.00,+764.00,+38.20,136,80,56,58.82,7,2,2.80
+WinGo 1M,Ultra-Sniper Convergence Tier 1 (p >= 66%),2000.00,Dynamic,2684.00,+684.00,+34.20,130,75,55,57.69,7,2,2.90
+Combined 30S+1M,Grand Unified Quantum Alpha Engine,2000.00,Dynamic,3141.20,+1141.20,+57.06,606,342,264,56.44,8,3,3.30
+Combined 30S+1M,Unified Physics & Entropy Alpha Engine,2000.00,Dynamic,3020.40,+1020.40,+51.02,632,354,278,56.01,7,3,3.40
+Combined 30S+1M,Next-Gen Alpha & Pattern Synthesizer,2000.00,Dynamic,2979.60,+979.60,+48.98,622,347,275,55.79,7,3,3.50
+WinGo 30S,Multi-Regime Adaptive Meta-Stacker,2000.00,Dynamic,2434.40,+434.40,+21.72,345,188,157,54.49,6,3,3.80

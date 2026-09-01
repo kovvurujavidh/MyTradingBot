@@ -1,0 +1,14 @@
+<svg width="1400" height="360" viewBox="0 0 1400 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1400" height="360" fill="#1A1A1A"/>
+  <path d="M0 290C220 220 360 325 575 252C780 182 940 270 1120 214C1230 180 1320 190 1400 150" stroke="#C5A059" stroke-opacity=".62"/>
+  <path d="M0 300C220 230 360 335 575 262C780 192 940 280 1120 224C1230 190 1320 200 1400 160" stroke="#C5A059" stroke-opacity=".18" stroke-width="12"/>
+  <circle cx="1040" cy="92" r="2" fill="#C5A059">
+    <animate attributeName="opacity" values=".2;1;.2" dur="3.2s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="1165" cy="128" r="2" fill="#C5A059">
+    <animate attributeName="opacity" values="1;.2;1" dur="4.1s" repeatCount="indefinite"/>
+  </circle>
+  <text x="80" y="128" fill="#F9F8F6" font-family="Georgia, serif" font-size="54" letter-spacing="1">Javidh Algo Pro</text>
+  <text x="84" y="174" fill="#C5A059" font-family="Arial, sans-serif" font-size="14" letter-spacing="4">REAL-TIME RESEARCH TERMINAL</text>
+  <text x="84" y="230" fill="#C0BDB7" font-family="Arial, sans-serif" font-size="17">A measured workspace for live WinGo sessions</text>
+</svg>

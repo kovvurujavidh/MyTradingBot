@@ -1,0 +1,2 @@
+Game,Strategy,Family,Test_Acc,WF_Mean_Acc,Max_Loss_Streak,Max_DD_Pct,Decision_Reason,What_Was_Learned
+None,No Strategy Passed 80% Gate,N/A,N/A,N/A,N/A,N/A,No strategy achieved >=80% accuracy across unseen walk-forward test periods (Maximum verified test accuracy was 53.12%),The game outcome sequence exhibits maximum information-theoretic entropy (H=1.0 bit) consistent with independent CSPRNG draws.
