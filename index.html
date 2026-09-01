@@ -120,6 +120,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;line-
       </div>
       <button class="btn-pill" onclick="openCap()">💰 <span id="navCap">₹2,000</span></button>
       <button class="btn-pill" id="themeToggle" onclick="toggleTheme()">☾ Night</button>
+      <button class="btn-pill" onclick="resetAll()" style="color:var(--red);border-color:var(--red)">🔄 Reset</button>
       <div class="clock-pill" id="clockPill">⏳ <span id="clockVal">30s</span></div>
     </div>
   </nav>
@@ -384,6 +385,11 @@ function submitAns(num){
 }
 
 function resetAlgo(){state.current_loss_streak=0;initHistory();document.getElementById('resetBanner').style.display='none';refresh();}
+function resetAll(){
+  if(!confirm('⚠️ Reset will clear ALL data and restart fresh. Continue?'))return;
+  localStorage.clear();
+  location.reload();
+}
 
 function predict(){
   const h=state.history;
